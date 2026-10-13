@@ -28,7 +28,7 @@ rm dist/site.zip
 # ponytail: works around three bugs of the eXeLearning 4.0.5 CLI exporter; drop each fix when
 # the pinned image no longer needs it (scripts/check.py fails if one comes back):
 # 1. names with spaces linked as content/resources/resources/ (fixed upstream in exelearning#2480);
-# 2. the 3dmol iDevice linked by its CSS class (idevices/dmole/) instead of its folder;
+# 2. the 3dmol iDevice linked by its CSS class (idevices/dmole/) instead of its folder (exelearning#2543);
 find dist/site -name '*.html' -exec perl -pi -e '
     s#content/resources/resources/#content/resources/#g;
     s#idevices/dmole/dmole\.#idevices/3dmol/3dmol.#g;
@@ -36,7 +36,7 @@ find dist/site -name '*.html' -exec perl -pi -e '
     s#idevice_node dmole"#idevice_node 3dmol"#g;
     s#data-idevice-type="dmole"#data-idevice-type="3dmol"#g;
 ' {} +
-# 3. Mermaid diagrams it cannot pre-render are left for libs/mermaid/, which it never exports.
+# 3. Mermaid diagrams it cannot pre-render are left for libs/mermaid/, which it never exports (exelearning#2544).
 if grep -rlq 'class="mermaid"' dist/site --include='*.html'; then
     mkdir -p dist/site/libs/mermaid
     docker run --rm --entrypoint cat "$IMAGE" /app/public/app/common/mermaid/mermaid.min.js \
