@@ -22,10 +22,10 @@ Cada [release](https://github.com/exelearning/exelearning-manual-es/releases) in
 
 - [`exelearning-manual-es.elpx`](https://github.com/exelearning/exelearning-manual-es/releases/latest/download/exelearning-manual-es.elpx):
   el proyecto, para abrirlo y modificarlo en eXeLearning (también con versión en el nombre,
-  por ejemplo `exelearning-manual-es-v1.0.0.elpx`).
+  por ejemplo `exelearning-manual-es-v4.0.5.elpx`).
 - [`exelearning-manual-es-html.zip`](https://github.com/exelearning/exelearning-manual-es/releases/latest/download/exelearning-manual-es-html.zip):
   el sitio web completo; descomprímelo y abre `index.html`, sin conexión (también como
-  `exelearning-manual-es-v1.0.0-html.zip`).
+  `exelearning-manual-es-v4.0.5-html.zip`).
 
 Los enlaces de arriba apuntan siempre a la última release.
 
@@ -85,8 +85,8 @@ La raíz del repositorio es el proyecto `.elpx` descomprimido, sin la exportaci�
   fallan, no se publica nada. Lanzado a mano, deja los paquetes como artefacto del workflow.
 
 La web no se guarda en el repositorio: se genera siempre desde `content.xml`, así que no hay dos
-versiones que puedan divergir. La numeración de las releases (`v1.0.0`, `v1.1.0`…) corresponde a
-las ediciones del manual, no a la versión de eXeLearning.
+versiones que puedan divergir. Cada release lleva la versión de eXeLearning que documenta
+el manual (`v4.0.5`).
 
 Para construirlo en local hace falta Docker; el resultado queda en `dist/`:
 

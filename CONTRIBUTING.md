@@ -59,13 +59,13 @@ eXeLearning CLI y comprueba el `.elpx`, los recursos referenciados y los enlaces
 `main`, el mismo workflow publica la web en GitHub Pages.
 
 Para publicar una nueva edición descargable, quien mantenga el repositorio crea una etiqueta
-siguiendo [SemVer](https://semver.org/lang/es/) según el alcance de los cambios:
+con la versión de eXeLearning que documenta el manual:
 
 ```sh
-git tag v1.1.0
-git push origin v1.1.0
+git tag v4.0.5
+git push origin v4.0.5
 ```
 
-El workflow *Release* genera `exelearning-manual-es-v1.1.0.elpx`,
-`exelearning-manual-es-v1.1.0-html.zip` y sus copias con nombre estable, y los adjunta a la
+El workflow *Release* genera `exelearning-manual-es-v4.0.5.elpx`,
+`exelearning-manual-es-v4.0.5-html.zip` y sus copias con nombre estable, y los adjunta a la
 release.
