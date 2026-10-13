@@ -1,0 +1,59 @@
+# Builds the manual and attaches the .elpx project and the HTML website to the release
+# of a v* tag. A manual run builds the same files and keeps them as a workflow artifact.
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build and validate the manual
+        run: scripts/build.sh
+
+      - name: Package the release files
+        id: package
+        run: |
+          if [ "$GITHUB_REF_TYPE" = tag ]; then version="$GITHUB_REF_NAME"; else version="$(git rev-parse --short HEAD)"; fi
+          mkdir release
+          cp dist/exelearning-manual-es.elpx "release/exelearning-manual-es-$version.elpx"
+          cp dist/exelearning-manual-es.elpx release/exelearning-manual-es.elpx
+          (cd dist/site && zip -qrX "../../release/exelearning-manual-es-$version-html.zip" .)
+          cp "release/exelearning-manual-es-$version-html.zip" release/exelearning-manual-es-html.zip
+          for file in release/*; do unzip -tq "$file"; done
+          ls -l release
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Attach the files to the release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release view "$TAG" > /dev/null 2>&1 || gh release create "$TAG" --verify-tag \
+            --title "Manual de eXeLearning $TAG" --generate-notes --notes "$(cat <<EOF
+          Manual de eXeLearning en español, generado con eXeLearning CLI a partir de \`content.xml\`.
+
+          - \`exelearning-manual-es-$TAG.elpx\`: proyecto para abrir y editar en eXeLearning.
+          - \`exelearning-manual-es-$TAG-html.zip\`: sitio web HTML5 completo; abre \`index.html\`.
+
+          Versión en línea: https://exelearning.github.io/exelearning-manual-es/
+          EOF
+          )"
+          gh release upload "$TAG" release/* --clobber
+
+      - name: Keep the files as a workflow artifact
+        if: github.ref_type != 'tag'
+        uses: actions/upload-artifact@v7
+        with:
+          name: exelearning-manual-es-${{ steps.package.outputs.version }}
+          path: release/
+          if-no-files-found: error

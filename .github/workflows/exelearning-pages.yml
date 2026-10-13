@@ -1,0 +1,62 @@
+# Publishes the manual on GitHub Pages every time its source changes, for example after
+# "Save to GitHub" in https://github.exelearning.dev. Pull requests are only built and checked.
+# Adapted from https://github.com/erseco/github-exelearning/blob/main/public/templates/exelearning-pages.yml
+# One-time setup: Settings → Pages → Build and deployment → Source: "GitHub Actions".
+name: Publish eXeLearning resource
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content.xml'
+      - 'content/resources/**'
+      - 'screenshot.png'
+      - 'theme/**'
+      - 'custom/**'
+      - 'scripts/**'
+      - '.github/workflows/exelearning-pages.yml'
+  pull_request:
+    paths:
+      - 'content.xml'
+      - 'content/resources/**'
+      - 'screenshot.png'
+      - 'theme/**'
+      - 'custom/**'
+      - 'scripts/**'
+      - '.github/workflows/exelearning-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build and validate the manual
+        run: scripts/build.sh
+
+      - uses: actions/upload-pages-artifact@v5
+        if: github.ref == 'refs/heads/main'
+        with:
+          path: dist/site
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
