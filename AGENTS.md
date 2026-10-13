@@ -21,9 +21,11 @@
 - `exelearning-pages.yml` construye los pull requests y publica `main` en GitHub Pages cuando
   cambian las fuentes o `scripts/`. Conserva el nombre de la plantilla de github.exelearning.dev
   para que su opción *Publish on GitHub Pages* no añada un segundo workflow.
-- Releases: la etiqueta es la versión de eXeLearning que documenta el manual (`v4.0.5`) y el título
-  de la release es solo la etiqueta. `release.yml` adjunta el `.elpx` y el ZIP HTML, con versión y
-  con nombre estable (`exelearning-manual-es.elpx`, `exelearning-manual-es-html.zip`).
+- Releases: la etiqueta es la versión de eXeLearning que documenta el manual (`v4.0.5`); las
+  correcciones posteriores para esa versión son `v4.0.5-1`, `v4.0.5-2`… Las etiquetas no se mueven
+  ni se reutilizan. El título de la release es solo la etiqueta y la última se marca como *Latest*.
+  `release.yml` adjunta el `.elpx` y el ZIP HTML, con versión y con nombre estable
+  (`exelearning-manual-es.elpx`, `exelearning-manual-es-html.zip`).
 - README, CONTRIBUTING y los textos para personas, en español; nombres técnicos y código, tal cual.
 - Licencia CC BY-SA 4.0 (Cedec / eXeLearning). No quitar créditos ni pies de imagen. Los logotipos
   institucionales de `theme/img/` tienen todos los derechos reservados y no se reutilizan.

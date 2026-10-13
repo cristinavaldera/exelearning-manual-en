@@ -39,7 +39,7 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           gh release view "$TAG" > /dev/null 2>&1 || gh release create "$TAG" --verify-tag \
-            --title "$TAG" --generate-notes --notes "$(cat <<EOF
+            --title "$TAG" --latest --generate-notes --notes "$(cat <<EOF
           Manual de eXeLearning en español, generado con eXeLearning CLI a partir de \`content.xml\`.
 
           - \`exelearning-manual-es-$TAG.elpx\`: proyecto para abrir y editar en eXeLearning.

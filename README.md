@@ -86,7 +86,8 @@ La raíz del repositorio es el proyecto `.elpx` descomprimido, sin la exportaci�
 
 La web no se guarda en el repositorio: se genera siempre desde `content.xml`, así que no hay dos
 versiones que puedan divergir. Cada release lleva la versión de eXeLearning que documenta
-el manual (`v4.0.5`).
+el manual (`v4.0.5`); las correcciones posteriores para esa versión se publican como `v4.0.5-1`,
+`v4.0.5-2`…
 
 Para construirlo en local hace falta Docker; el resultado queda en `dist/`:
 

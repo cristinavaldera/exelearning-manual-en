@@ -59,7 +59,9 @@ eXeLearning CLI y comprueba el `.elpx`, los recursos referenciados y los enlaces
 `main`, el mismo workflow publica la web en GitHub Pages.
 
 Para publicar una nueva edición descargable, quien mantenga el repositorio crea una etiqueta
-con la versión de eXeLearning que documenta el manual:
+con la versión de eXeLearning que documenta el manual. Si ya existe una release para esa versión,
+las correcciones se publican añadiendo un número: `v4.0.5-1`, `v4.0.5-2`… Las etiquetas publicadas
+no se mueven ni se reutilizan.
 
 ```sh
 git tag v4.0.5
